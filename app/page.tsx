@@ -104,7 +104,10 @@ export default function Home() {
               {weatherData.weather[0].description}
             </p>
             <p className="text-4xl font-bold text-blue-600">
-              {Math.round(weatherData.main.temp)- 273.15}°C
+              {Math.round(weatherData.main.temp- 273.15)}°C
+            </p>
+            <p className="text-2xl font-bold text-blue-400">
+              {Math.round(weatherData.main.temp)}°K
             </p>
             <p className="text-sm text-gray-500">
               Feels like {Math.round(weatherData.main.feels_like)}°C
