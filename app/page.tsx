@@ -63,7 +63,7 @@ export default function Home() {
       }
 
       const { lat, lon } = cityData[0];
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
       const weatherRes = await fetch(weatherUrl);
       const weatherJson: WeatherResponse = await weatherRes.json();
 
@@ -72,7 +72,13 @@ export default function Home() {
       console.error("Error fetching data:", err);
     }
   }
+      function toCelsius(kelvin: number) {
+      return Math.round(kelvin - 273.15);
+    }
 
+    function toFahrenheit(kelvin: number) {
+      return Math.round((kelvin - 273.15) * 9/5 + 32);
+    }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-200 to-blue-300">
       <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
@@ -104,10 +110,10 @@ export default function Home() {
               {weatherData.weather[0].description}
             </p>
             <p className="text-4xl font-bold text-blue-600">
-              {Math.round(weatherData.main.temp- 273.15)}°C
+            {weatherData.main.temp}°C
             </p>
-            <p className="text-2xl font-bold text-blue-400">
-              {Math.round(weatherData.main.temp)}°K
+            <p className="text-2xl text-gray-500">
+            {toFahrenheit(weatherData.main.temp)}°F
             </p>
             <p className="text-sm text-gray-500">
               Feels like {Math.round(weatherData.main.feels_like)}°C
