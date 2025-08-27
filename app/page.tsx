@@ -46,14 +46,14 @@ export type WeatherResponse = {
 export default function Home() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState<WeatherResponse | null>(null);
-
+  const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
   const eventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCity(e.target.value);
   };
 
   async function fetchWeatherData() {
     try {
-      const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=f9b95af02b9de2a067778edd6494eff3`;
+      const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`;
       const geoRes = await fetch(geoUrl);
       const cityData: GeoRes[] = await geoRes.json();
 
@@ -63,7 +63,7 @@ export default function Home() {
       }
 
       const { lat, lon } = cityData[0];
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=f9b95af02b9de2a067778edd6494eff3&units=metric`;
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
       const weatherRes = await fetch(weatherUrl);
       const weatherJson: WeatherResponse = await weatherRes.json();
 
