@@ -46,7 +46,7 @@ export type WeatherResponse = {
 export default function Home() {
   const [city, setCity] = useState("");
   const [weatherData, setWeatherData] = useState<WeatherResponse | null>(null);
-  const apiKey = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
+  const apiKey = 'f9b95af02b9de2a067778edd6494eff3';
   const eventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCity(e.target.value);
   };
